@@ -17,7 +17,6 @@ int day1()
     int32_t numbers[200] = {0};
     int32_t n = 0;
     const unsigned char *s = input;
-    printf("1\n");
     while (*s != '\0')
     {
         while (*s >= '0' && *s <= '9')
@@ -29,7 +28,6 @@ int day1()
             ++s;
         ++n;
     }
-    printf("2\n");
     qsort(numbers, n, sizeof(int32_t), intcmp);
 
     int32_t answer = 0;
@@ -38,17 +36,20 @@ int day1()
     {
         for (int32_t j = i + 1; j < n; ++j)
         {
+            if (answer2 == 0)
+            {
+                for (int32_t k = j + 1; k < n; ++k)
+                {
+                    if (numbers[i] + numbers[j] + numbers[k] == 2020)
+                    {
+                        answer2 = numbers[i] * numbers[j] * numbers[k];
+                        k = n;
+                    }
+                }
+            }
             if (numbers[i] + numbers[j] == 2020)
             {
                 answer = numbers[i] * numbers[j];
-            }
-
-            for (int32_t k = j + 1; k < n; ++k)
-            {
-                if (numbers[i] + numbers[j] + numbers[k] == 2020)
-                {
-                    answer2 = numbers[i] * numbers[j] * numbers[k];
-                }
             }
             if (answer > 0 && answer2 > 0)
             {
